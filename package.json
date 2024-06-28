@@ -1,0 +1,11 @@
+{
+  "name": "calculatedeltaonchartseries",
+  "version": "0.0.1",
+  "description": "This module will compute the delta required to show the topraq api data on ui chart",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Nauman Qazi",
+  "license": "ISC"
+}
