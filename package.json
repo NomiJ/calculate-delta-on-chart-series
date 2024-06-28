@@ -4,8 +4,11 @@
   "description": "This module will compute the delta required to show the topraq api data on ui chart",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "jest"
   },
   "author": "Nauman Qazi",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
