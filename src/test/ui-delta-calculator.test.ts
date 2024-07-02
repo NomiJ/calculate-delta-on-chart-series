@@ -12,9 +12,9 @@ test('the pre test data should output post test data - refactored method', () =>
   expect(calculator.calculateDelta(preTestData)).toEqual(postOutputData);
 });
 
-
 test('the pre test data should output post test data - unrefactored method', () => {
   // Use the preTestData and postOutputData variables in your test
-  expect(calculator.prepareAdminUIStackedDataset(preTestData)).toEqual(postOutputData);
+  const calculatedDataSet = calculator.prepareAdminUIStackedDataset(preTestData)
+  expect(calculatedDataSet).toEqual(postOutputData);
 });
 
