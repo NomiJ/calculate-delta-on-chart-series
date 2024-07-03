@@ -10,7 +10,7 @@ class UIDeltaCalculator {
       stackedDataset.series = lodash.reverse(stackedDataset.series);
       let { serie, serieIndex } = this.getFirstNotNullSerie(stackedDataset.series);
       if (serie != null) {
-       this.calculateDeltaForSeries(stackedDataset.series, serieIndex);
+       this.calculateDeltaForSeries(stackedDataset, serieIndex);
         stackedDataset.series = lodash.reverse(stackedDataset.series);
       }
     }
@@ -23,6 +23,8 @@ class UIDeltaCalculator {
     let minValueDiff = 0;
     let valueDiff = 0;
     let diffCorrection = 1;
+
+
     let serie = stackedDataset.series[0];
     serie.data.forEach((d: any) => {
       d.stack = d.y;
@@ -53,6 +55,72 @@ class UIDeltaCalculator {
         });
       }
     }
+  }
+
+  prepareAdminUIStackedDataset(dataset:any) {
+
+    let stackedDataset = [];
+    if (dataset && dataset.series && dataset.series.length) {
+        // clone sensor data
+        stackedDataset = lodash.cloneDeep(dataset);
+        // reverse serie order
+        stackedDataset.series = lodash.reverse(stackedDataset.series);
+        // get first not null seriaserie
+        let { serie, serieIndex } = this.getFirstNotNullSerie(stackedDataset.series);
+        // check serie
+        if (serie != null) {
+            // variables        
+            let previousSerie:any = null;
+            let previousSerieDataItem = null;
+            let minValueDiff = 0;
+            let valueDiff = 0;
+            let diffCorrection = 1;
+            // get first serie
+            serie = stackedDataset.series[0];
+            // set stack values of first serie            
+            serie.data.forEach(function (d:any, i:any) {
+                d.stack = d.y;
+            });
+            // loop on other series
+            for (var si = (serieIndex + 1), sl = stackedDataset.series.length; si < sl; si++) {
+                // get serie
+                serie = stackedDataset.series[si];
+                // check serie
+                if (this.isSerieNotNull(serie)) {
+                    // get previous serie                
+                    previousSerie = this.getPreviousNotNullSerie(stackedDataset.series, si);
+                    // set variables
+                    minValueDiff = Number.MAX_SAFE_INTEGER;
+                    previousSerieDataItem = null;
+                    valueDiff = 0;
+                    // loop on serie data to find min. diff.
+                    if (previousSerie) {
+                        serie.data.forEach((serieDataItem:any, serieDataIndex:any) => {
+                            previousSerieDataItem = previousSerie.data[serieDataIndex];
+                            if (serieDataItem && previousSerieDataItem && serieDataItem.y != null && previousSerieDataItem.stack != null) {
+                                valueDiff = serieDataItem.y - previousSerieDataItem.stack;
+                                if (minValueDiff > valueDiff) minValueDiff = valueDiff;
+                            }
+                        });
+                    }
+                    // check min. value diff
+                    if (minValueDiff == Number.MAX_SAFE_INTEGER) minValueDiff = 0;
+                    if (minValueDiff < 0) minValueDiff = Math.abs(minValueDiff) + diffCorrection;
+                    else if (minValueDiff == 0) minValueDiff = diffCorrection;
+                    else if (minValueDiff > 0) minValueDiff = diffCorrection - minValueDiff;
+                    // round min. value diff
+                    minValueDiff = Math.ceil(minValueDiff);
+                    // calculate stack value of serie
+                    serie.data.forEach((serieDataItem:any) => {
+                        serieDataItem.stack = (serieDataItem.y != null ? serieDataItem.y + minValueDiff : null);
+                    });
+                }
+            }
+            // reverse series to original order
+            stackedDataset.series = lodash.reverse(stackedDataset.series);
+        }
+    }
+    return stackedDataset;
   }
 
   private isSerieNotNull(serie: any) {
