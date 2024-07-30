@@ -50,14 +50,6 @@ describe('Calculate the max_yf of each series and insert it into series', () => 
     });
   });
 
-/*
-test('the pre test data should output post test data - unrefactored method', () => {
-  const calculatedDataSet = calculator.prepareAdminUIStackedDatasetV2(preTestData)
-  expect(calculatedDataSet).toEqual(postOutputData);
-});
-*/
-
-
 test('the pre test data should output post test data - refactored method', () => {
   const calculatedDataSet = calculator.calculateDelta(preTestData)
   expect(calculatedDataSet).toEqual(postOutputData);
