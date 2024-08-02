@@ -47,6 +47,10 @@ Here is an example of a test case for the insertMaxYFIntoSeries method:
     expect(jsonData.series[0].max_yf).toEqual(5);
     });
 ```
+## TODO
+    - Benchmarking
+    - Add CodeCoverage using git actions
+
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request for any changes.
 
