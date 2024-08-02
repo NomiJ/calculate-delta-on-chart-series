@@ -1,53 +1,64 @@
 version: 2.1
-
-executors:
-  node-executor:
-    docker:
-      - image: cimg/node:16.10
-
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: cimg/node:16.10
+      
 jobs:
   build:
-    executor: node-executor
+    <<: *defaults
     steps:
-      - checkout
       - run:
-          name: Install dependencies
-          command: npm install
-      - run:
-          name: Run tests
-          command: npm test
-      - run:
-          name: Generate coverage report
-          command: npm run coverage
-
-  codeclimate:
+          name:  Download cc-test-reporter
+          command: |
+            mkdir -p tmp/
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
+            chmod +x ./tmp/cc-test-reporter
+      - persist_to_workspace:
+          root: tmp
+          paths:
+            - cc-test-reporter
+  
+  frontend-tests:
+    <<: *defaults
+    steps:
+      - checkout 
+      - attach_workspace:
+          at: ~/repo/tmp
+      - run: npm install
+      - run: 
+          name: Run frontend testss
+          command: |
+            npm test
+            ./tmp/cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.frontend.json coverage/frontend/lcov.info
+      - persist_to_workspace:
+          root: tmp
+          paths: 
+            - codeclimate.frontend.json
+  
+  upload-coverage:
+    <<: *defaults
+    environment: 
+      CC_TEST_REPORTER_ID: 1fd33f8f1aad76daa08264a9deb799daa253fdca5fbbe1eb8de85901e653cbf8
     docker:
       - image: codeclimate/codeclimate
-    environment:
-      CC_TEST_REPORTER_ID: 1fd33f8f1aad76daa08264a9deb799daa253fdca5fbbe1eb8de85901e653cbf8
     steps:
-      - checkout
+      - attach_workspace:
+          at: ~/repo/tmp
       - run:
-          name: Prepare CodeClimate
+          name: Upload coverage results to Code Climate
           command: |
-            apk update && apk add curl curl-dev bash
-            curl -L https://github.com/codeclimate/test-reporter/releases/download/v0.8.0/codeclimate-test-reporter-linux-amd64 -o ./cc-test-reporter
-            chmod +x ./cc-test-reporter
-            ./cc-test-reporter before-build
-      - run:
-          name: Run CodeClimate
-          command: |
-            ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $?
-
+            ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -p 2 -o tmp/codeclimate.total.json
+            ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.json
 workflows:
   version: 2
-  build_and_test:
-     jobs:
-      - build:
-          filters:
-            branches:
-              only:
-                  - main
-      - codeclimate:
+
+  commit:
+    jobs:
+      - build
+      - frontend-tests: 
+          requires: 
+             - build
+      - upload-coverage:
           requires:
-            - build
+             - frontend-tests
