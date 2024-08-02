@@ -1,8 +1,8 @@
 import UIDeltaCalculator from '../ui-delta-calculator';
 
-const preDataFileName = './simplified-pre.611.json';
-const postDataFileName = './simplified-post.611.json';
-const preDataSortedByDepthFileName = './simplified-pre.611.sorted_by_depth_in_title.json';
+const preDataFileName = './data/simplified-pre.611.json';
+const postDataFileName = './data/simplified-post.611.json';
+const preDataSortedByDepthFileName = './data/simplified-pre.611.sorted_by_depth_in_title.json';
 
 const preTestData = require(preDataFileName);
 const postOutputData = require(postDataFileName);
