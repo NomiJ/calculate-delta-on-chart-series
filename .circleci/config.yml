@@ -30,6 +30,7 @@ jobs:
       - run:
           name: Prepare CodeClimate
           command: |
+            apk update && apk add curl curl-dev bash
             curl -L https://github.com/codeclimate/test-reporter/releases/download/v0.8.0/codeclimate-test-reporter-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
             ./cc-test-reporter before-build
