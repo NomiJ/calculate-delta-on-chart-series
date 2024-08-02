@@ -41,8 +41,12 @@ jobs:
 workflows:
   version: 2
   build_and_test:
-    jobs:
-      - build
+     jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                  - main
       - codeclimate:
           requires:
             - build
