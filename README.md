@@ -1,6 +1,4 @@
-# UI Delta Calculator [![Maintainability](https://api.codeclimate.com/v1/badges/c450d8b44294549d8e5b/maintainability)](https://codeclimate.com/github/NomiJ/calculate-delta-on-chart-series/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/c450d8b44294549d8e5b/test_coverage)](https://codeclimate.com/github/NomiJ/calculate-delta-on-chart-series/test_coverage) 
-# Example for specific branch:
-[![CircleCI](https://circleci.com/gh/NomiJ/calculate-delta-on-chart-series/tree/main.svg?style=svg)](https://circleci.com/gh//NomiJ/calculate-delta-on-chart-series/tree/main)
+# UI Delta Calculator [![Maintainability](https://api.codeclimate.com/v1/badges/c450d8b44294549d8e5b/maintainability)](https://codeclimate.com/github/NomiJ/calculate-delta-on-chart-series/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/c450d8b44294549d8e5b/test_coverage)](https://codeclimate.com/github/NomiJ/calculate-delta-on-chart-series/test_coverage) [![CircleCI](https://circleci.com/gh/NomiJ/calculate-delta-on-chart-series/tree/main.svg?style=svg)](https://circleci.com/gh//NomiJ/calculate-delta-on-chart-series/tree/main)
 
 This project is a UI Delta Calculator that processes series data and calculates the maximum `y_f` value for each series.
 
