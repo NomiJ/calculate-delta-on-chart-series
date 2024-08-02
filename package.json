@@ -4,8 +4,7 @@
   "description": "This module will compute the delta required to show the topraq api data on ui chart",
   "main": "ui-delta-calculator.ts",
   "scripts": {
-    "test": "jest",
-    "coverage": "jest --coverage"
+    "test": "jest --coverage"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
