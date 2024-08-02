@@ -52,12 +52,12 @@ Here is an example of a test case for the insertMaxYFIntoSeries method:
     - Add CodeCoverage using git actions
 
 ## CircleCI
-    [CircleCI Project](https://app.circleci.com/pipelines/github/NomiJ/calculate-delta-on-chart-series)
-    - Use p to add/remove the number of coverage from different projects that needs to be uploaded to code climate
-        `./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -p 1 -o tmp/codeclimate.total.json`
+[CircleCI Project](https://app.circleci.com/pipelines/github/NomiJ/calculate-delta-on-chart-series)
+- Use p to add/remove the number of coverage from different projects that needs to be uploaded to code climate
+    `./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -p 1 -o tmp/codeclimate.total.json`
 
 ## CodeClimate
-    [CodeClimate Project](https://codeclimate.com/github/NomiJ/calculate-delta-on-chart-series) 
+[CodeClimate Project](https://codeclimate.com/github/NomiJ/calculate-delta-on-chart-series) 
  
 
 ## Contributing
