@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import Utils from '../utils';
 
 export enum ChartType {

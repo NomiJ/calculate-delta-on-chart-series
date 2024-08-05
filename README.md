@@ -27,6 +27,8 @@ To use the calculator, you can import it and call the insertMaxYFIntoSeries meth
     const result = calculator.insertMaxYFIntoSeries(data);
     console.log(result);
 ``` 
+## Usage
+Run the angular app in chart-demo
 
 ## Running Tests
 To run the tests, use the following command:
@@ -48,8 +50,9 @@ Here is an example of a test case for the insertMaxYFIntoSeries method:
     });
 ```
 ## TODO
-    - Benchmarking
-    - Add CodeCoverage using git actions
+    - ### Benchmarking
+    - ### Stress test with large data loading
+    - ### Add CodeCoverage using git actions
 
 ## CircleCI
 [CircleCI Project](https://app.circleci.com/pipelines/github/NomiJ/calculate-delta-on-chart-series)
@@ -67,3 +70,4 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 ## License
 This project is licensed under the MIT
+
