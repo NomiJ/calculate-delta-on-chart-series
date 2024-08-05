@@ -1,0 +1,82 @@
+<!-- type is 3/Desktop View -->
+<div class="row main-items-outer m-0" *ngIf="isMeasurementsCalculated">
+  <div *ngFor="let item of measurementsListing" class="p-2 {{ item.p_class }}">
+    <div class="item-inner text-center">
+      <p class="m-0" [style.color]="item.color">
+        <img
+          *ngIf="item.device_icon"
+          class="device-icon"
+          [src]="'assets/images/device-icons/' + item.device_icon"
+          alt="device"
+        />
+
+        <span> {{ item.label }} </span>
+      </p>
+      <sup *ngIf="item.unit_inverse == true" [style.color]="item.color">
+        {{ item.unit }}
+      </sup>
+      <span class="h5 font-weight-normal" [style.color]="item.color">
+        {{ item.value_f ? item.value_f : '-' }}
+      </span>
+      <sup *ngIf="item.unit_inverse == false" [style.color]="item.color">
+        {{ item.unit }}
+      </sup>
+    </div>
+  </div>
+</div>
+
+<!-- Mob View If type is 1/mobile  -->
+<div class="d-flex flex-column pl-2 pr-2">
+  <div class="d-sm-block d-md-none" *ngFor="let item of measurementsListing">
+    <div
+      *ngIf="item.type == 1"
+      class="col-12 d-flex rounded p-2 mt-1"
+      style="justify-content: space-between; background-color: #dfdfdf"
+    >
+      <span>
+        <i class="fa fa-{{ item.icon }} mr-2"></i>
+        <span>{{ item.label }}</span>
+      </span>
+      <span>
+        <span *ngIf="item.unit_inverse == true">
+          {{ item.unit }}
+        </span>
+        <span>{{ item.value_f ? item.value_f : '-' }}</span>
+        <span *ngIf="item.unit_inverse == false">
+          {{ item.unit }}
+        </span>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- type is 2/Table Measurements -->
+<div *ngIf="isTableMeasurementsCalculated" class="col-12 col-md-6 mt-2 mt-md-0 pl-0 pr-0">
+  <table class="table table-borderless">
+    <thead>
+      <tr>
+        <th class="text-center" *ngFor="let head of tableHeaderListing">
+          <div class="d-flex align-items-start justify-content-center">
+            <img
+              *ngIf="head.device_icon"
+              class="device-icon"
+              [src]="'assets/images/device-icons/' + head.device_icon"
+              alt="device"
+            />
+
+            <span class="head-label"> {{ head.label ? head.label : head }} </span>
+          </div>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of tableRowsListing">
+        <td class="text-center">{{ item.label }}</td>
+        <td class="text-center" *ngFor="let cell of item.cells">
+          {{ cell ? (cell.value_f ? cell.value_f : '-') : '-' }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

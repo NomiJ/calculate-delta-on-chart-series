@@ -1,0 +1,47 @@
+.main-items-outer {
+  justify-content: space-around;
+}
+
+.device-icon {
+  width: 1rem;
+  margin-right: 5px;
+}
+
+.head-label {
+  font-size: 11px;
+}
+
+p {
+  font-size: 13px !important;
+}
+
+sup {
+  top: -0.3rem;
+  font-size: 12px;
+}
+
+@media screen and (min-width: 375px) {
+  .device-icon {
+    width: 1.2rem;
+  }
+
+  .head-label {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .main-items-outer {
+    justify-content: space-between;
+  }
+}
+
+.table th, .table td{
+  padding: 0.35rem
+}
+
+@media (min-width: 576px) {
+  .table th, .table td{
+    padding: 0.75rem;
+  }
+}
